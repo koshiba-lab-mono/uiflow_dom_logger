@@ -1,0 +1,19 @@
+{
+  "short_name": "myChromeExt",
+  "name": "my-chrome-extension",
+  "manifest_version": 3,
+  "description": "練習用chrome拡張開発",
+  "version": "0.0.1",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"]
+    }
+  ]
+}
