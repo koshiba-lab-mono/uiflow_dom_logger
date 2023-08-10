@@ -1,10 +1,25 @@
-document.addEventListener("click", () => {
-  const body = document.querySelector("body");
-  if (!body) {
+const queryName =
+  ".blocklyDraggable:not(.blocklydisabled):not(.blocklyInsertionMarker)>.blocklyPath";
+const blocklyCanvas = document.querySelector(".blocklyBlockCanvas")!;
+let blocks: Element[] = [];
+
+const observer = new MutationObserver((mutations) => {
+  const tmpBlocks = blocklyCanvas.querySelectorAll(queryName);
+
+  // 組み立て中のブロックに差分が無かったらなにもしない
+  if (blocks.length === tmpBlocks.length) {
     return;
   }
 
-  chrome.runtime.sendMessage({ body: body.outerHTML }, (res_from_background) =>
-    console.log(res_from_background)
-  );
+  blocks = Array.from(tmpBlocks);
+
+  const data = {
+    content: blocklyCanvas.outerHTML
+  };
+
+  chrome.runtime.sendMessage(data, (res) => {
+    console.log(res);
+  });
 });
+
+observer.observe(blocklyCanvas, { childList: true });
