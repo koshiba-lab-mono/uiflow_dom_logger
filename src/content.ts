@@ -14,7 +14,8 @@ const observer = new MutationObserver((mutations) => {
   blocks = Array.from(tmpBlocks);
 
   const data = {
-    content: blocklyCanvas.outerHTML
+    date: Date.now(),
+    html: blocklyCanvas.outerHTML,
   };
 
   chrome.runtime.sendMessage(data, (res) => {

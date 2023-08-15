@@ -3,9 +3,9 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-
 class PostData(BaseModel):
-    content: str
+    date: int
+    html: str
 
 
 @app.get("/")
