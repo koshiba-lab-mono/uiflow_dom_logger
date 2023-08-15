@@ -15,5 +15,7 @@
   "scripts": {
     "dev": "webpack --mode development --watch"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dexie": "^3.2.4"
+  }
 }

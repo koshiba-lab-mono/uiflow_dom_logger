@@ -1,21 +1,15 @@
-const input = document.querySelector("#host-input") as HTMLInputElement;
-const button = document.querySelector("#submit-btn");
+import { IndexedDBStore } from "./stores/indexedDBStore";
 
-const setStorageValue = async () => {
-  const item = await chrome.storage.sync.get("hostName");
-  if (item) {
-    input.value = item.hostName;
-  }
-};
+const deleteButton = document.querySelector("#delete");
+const downloadButton = document.querySelector("#download");
 
+deleteButton?.addEventListener("click", async () => {
+  const db = await IndexedDBStore.createInstance();
+  await db.deleteAll();
+  alert("done");
+});
 
-setStorageValue();
-button?.addEventListener("click", () => {
-  if (!input.value) {
-    return;
-  }
-
-  chrome.storage.sync.set({ hostName: input.value }, () => {
-    input.value;
-  });
+downloadButton?.addEventListener("click", async () => {
+  const db = await IndexedDBStore.createInstance();
+  alert(await db.getAll());
 });

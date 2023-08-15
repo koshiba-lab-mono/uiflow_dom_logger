@@ -1,20 +1,13 @@
-type ContentType = {
-  Content: Element[];
+import { ContentStore, ContentType } from "./stores/contentStore";
+import { IndexedDBStore } from "./stores/indexedDBStore";
+import { PostBackEndStore } from "./stores/postBackEndStore";
+
+const main = async () => {
+  const store = await IndexedDBStore.createInstance();
+  chrome.runtime.onMessage.addListener(async (content: ContentType) => {
+    await store.add(content);
+    console.log(await store.getAll());
+  });
 };
 
-
-
-chrome.runtime.onMessage.addListener(async (content: ContentType) => {
-  const item = await chrome.storage.sync.get("hostName");
-  if (!item) {
-    return;
-  }
-
-  const res = await fetch(item.hostName, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(content),
-  });
-});
+main();
