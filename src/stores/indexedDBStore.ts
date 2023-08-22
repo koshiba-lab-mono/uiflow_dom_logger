@@ -5,49 +5,36 @@ type BlockDexie = Dexie & {
   blocks: Dexie.Table<ContentType, number>;
 };
 
-export class IndexedDBStore extends ContentStore {
-  private db: BlockDexie | null;
+class IndexedDBStore extends ContentStore {
+  private readonly db: BlockDexie;
 
-  private constructor() {
+  public constructor() {
     super();
-    this.db = null;
-  }
-
-  static async createInstance() {
-    const instance = new IndexedDBStore();
-    instance.db = new Dexie("blockdb") as BlockDexie;
-    instance.db.version(1).stores({
+    this.db = new Dexie("blockdb") as BlockDexie;
+    this.db.version(1).stores({
       blocks: "date,content",
     });
-
-    return instance;
   }
 
   public async add(content: ContentType): Promise<void | ContentType> {
-    if (!this.db) {
-      return;
-    }
-
     const res = await this.db.blocks.put(content).catch((err) => {
-      console.log(err);
+      throw err;
     });
 
     return content;
   }
 
   public async getAll() {
-    if (!this.db) {
-      return [];
-    }
-
-    return await this.db.blocks.toArray();
+    return await this.db.blocks.toArray().catch((err) => {
+      throw err;
+    });
   }
 
   public async deleteAll(): Promise<void> {
-    if (!this.db) {
-      return;
-    }
-
-    return await this.db.blocks.clear();
+    return await this.db.blocks.clear().catch((err) => {
+      throw err;
+    });
   }
 }
+
+export const indexedDBStore = new IndexedDBStore();

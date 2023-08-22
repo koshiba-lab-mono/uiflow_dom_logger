@@ -1,15 +1,18 @@
-import { IndexedDBStore } from "./stores/indexedDBStore";
-
+import { indexedDBStore } from "./stores/indexedDBStore";
 const deleteButton = document.querySelector("#delete");
 const downloadButton = document.querySelector("#download");
 
 deleteButton?.addEventListener("click", async () => {
-  const db = await IndexedDBStore.createInstance();
-  await db.deleteAll();
-  alert("done");
+  await indexedDBStore.deleteAll();
 });
 
 downloadButton?.addEventListener("click", async () => {
-  const db = await IndexedDBStore.createInstance();
-  alert(await db.getAll());
+  const data = await indexedDBStore.getAll();
+  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = "blocks.json";
+  anchor.click();
+  URL.revokeObjectURL(url);
 });
