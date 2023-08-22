@@ -1,5 +1,6 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV || "development",
@@ -25,5 +26,18 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".js"],
   },
-  plugins: [new CopyPlugin([{ from: ".", to: "../" }], { context: "public" })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: "body",
+      filename: "../popup.html",
+      template: "./public/popup.html",
+      chunks: ["popup"],
+    }),
+    new CopyPlugin([
+      {
+        from: "./public/manifest.json",
+        to: "./../",
+      },
+    ]),
+  ],
 };
