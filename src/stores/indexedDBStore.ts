@@ -16,7 +16,7 @@ class IndexedDBStore extends ContentStore {
     });
   }
 
-  public async add(content: ContentType): Promise<void | ContentType> {
+  public async add(content: ContentType): Promise<ContentType> {
     const res = await this.db.blocks.put(content).catch((err) => {
       throw err;
     });

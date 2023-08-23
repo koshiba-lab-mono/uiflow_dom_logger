@@ -1,9 +1,11 @@
+import { ContentType } from "./stores/contentStore";
+
 const queryName =
   ".blocklyDraggable:not(.blocklydisabled):not(.blocklyInsertionMarker)>.blocklyPath";
 const blocklyCanvas = document.querySelector(".blocklyBlockCanvas")!;
 let blocks: Element[] = [];
 
-const observer = new MutationObserver((mutations) => {
+const observer = new MutationObserver(async (mutations) => {
   const tmpBlocks = blocklyCanvas.querySelectorAll(queryName);
 
   // 組み立て中のブロックに差分が無かったらなにもしない
@@ -13,12 +15,12 @@ const observer = new MutationObserver((mutations) => {
 
   blocks = Array.from(tmpBlocks);
 
-  const data = {
+  const content: ContentType = {
     date: Date.now(),
     html: blocklyCanvas.outerHTML,
   };
 
-  chrome.runtime.sendMessage(data, (res) => {
+  chrome.runtime.sendMessage(content, (res) => {
     console.log(res);
   });
 });

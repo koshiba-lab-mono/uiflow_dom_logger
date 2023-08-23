@@ -16,3 +16,22 @@ downloadButton?.addEventListener("click", async () => {
   anchor.click();
   URL.revokeObjectURL(url);
 });
+
+const onPopUP = async () => {
+  const data = await indexedDBStore.getAll();
+  if (!data.length) {
+    return;
+  }
+
+  const content = data[data.length - 1];
+  const svg = document.querySelector("svg")!;
+  svg.innerHTML = content.html;
+  const blocklyCanvas = document.querySelector(".blocklyBlockCanvas")!;
+  blocklyCanvas.removeAttribute("transform")!;
+  let rect: null | DOMRect = null;
+  Array.from(blocklyCanvas.children).map((g) => {
+    g.removeAttribute("transform");
+  });
+};
+
+onPopUP();
