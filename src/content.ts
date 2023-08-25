@@ -14,7 +14,6 @@ const observer = new MutationObserver(async (mutations) => {
   }
 
   blocks = Array.from(tmpBlocks);
-
   const content: ContentType = {
     date: Date.now(),
     html: blocklyCanvas.outerHTML,

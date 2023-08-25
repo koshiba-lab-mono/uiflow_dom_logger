@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import reactDom from "react-dom";
 import { Slider } from "@mui/material";
 import { Box } from "@mui/material";
@@ -6,10 +6,8 @@ import { Button } from "@mui/material";
 import { ContentType } from "./stores/contentStore";
 import { indexedDBStore } from "./stores/indexedDBStore";
 import { BlockCanvas } from "./components/BlockCanvas";
-
-const deleteAll = async () => {
-  await indexedDBStore.deleteAll();
-};
+import { BlocksTimeLineChart } from "./components/BlocksTimeLineChart";
+import { getBlockNum } from "./utils/utils";
 
 export const Popup = () => {
   const [allData, setAllData] = useState<ContentType[]>([]);
@@ -24,6 +22,11 @@ export const Popup = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const deleteAll = useCallback(async () => {
+    await indexedDBStore.deleteAll();
+    setAllData([]);
+  }, []);
+
   const download = useCallback(async () => {
     const blob = new Blob([JSON.stringify(allData)], {
       type: "application/json",
@@ -36,13 +39,12 @@ export const Popup = () => {
     URL.revokeObjectURL(url);
   }, [allData]);
 
-  const sliderOnChange = (event: Event, newValue: number | number[]) => {
-    setCurrentIndex(newValue as number);
-  };
-
   return (
     <>
       <main>
+        {`ブロックの数: ${
+          allData.length ? getBlockNum(allData[currentIndex]) : null
+        }`}
         <Box sx={{ textAlign: "center" }}>
           <Button variant="contained" onClick={download}>
             download
@@ -51,15 +53,12 @@ export const Popup = () => {
             delete
           </Button>
         </Box>
+        <BlocksTimeLineChart
+          allData={allData}
+          dataOnClick={(x) => setCurrentIndex(x)}
+        />
         {allData.length ? (
           <>
-            <Slider
-              data-label="Date"
-              value={currentIndex}
-              onChange={sliderOnChange}
-              min={0}
-              max={allData.length - 1}
-            />
             <BlockCanvas contentState={allData[currentIndex]} />
           </>
         ) : null}
