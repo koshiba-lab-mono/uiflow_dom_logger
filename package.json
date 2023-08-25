@@ -1,6 +1,8 @@
 {
   "devDependencies": {
     "@types/chrome": "^0.0.243",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
     "copy-webpack-plugin": "5.1.2",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
@@ -19,6 +21,14 @@
     "dev": "webpack --mode development --watch"
   },
   "dependencies": {
-    "dexie": "^3.2.4"
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.6",
+    "@mui/styled-engine-sc": "^5.14.6",
+    "dexie": "^3.2.4",
+    "html-react-parser": "^4.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.0.7"
   }
 }

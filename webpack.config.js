@@ -8,7 +8,7 @@ module.exports = {
   entry: {
     content: path.join(__dirname, "src/content.ts"),
     background: path.join(__dirname, "src/background.ts"),
-    popup: path.join(__dirname, "src/popup.ts"),
+    popup: path.join(__dirname, "src/popup.tsx"),
   },
   output: {
     path: path.join(__dirname, "dist/src"),
@@ -19,16 +19,17 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+        exclude: /node_modules/,
       },
       {
-        test: /\.ts$/,
+        test: /\.(ts|tsx)$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".js", ".tsx"],
   },
   plugins: [
     new HtmlWebpackPlugin({
