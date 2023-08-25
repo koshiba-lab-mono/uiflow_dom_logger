@@ -1,6 +1,7 @@
 import { ContentType } from "./stores/contentStore";
 import { indexedDBStore } from "./stores/indexedDBStore";
 import { wrapDivSvg } from "./utils/utils";
+import "./popup.css";
 
 const deleteButton = document.querySelector("#delete")!;
 const downloadButton = document.querySelector("#download")!;
