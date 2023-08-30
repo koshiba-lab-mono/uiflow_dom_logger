@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import reactDom from "react-dom";
-import { Slider } from "@mui/material";
+import { UploadButton } from "./components/UploadButton";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { ContentType } from "./stores/contentStore";
@@ -11,6 +11,7 @@ import { getBlockNum } from "./utils/utils";
 
 export const Popup = () => {
   const [allData, setAllData] = useState<ContentType[]>([]);
+  const [file, setFile] = useState<File | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -21,6 +22,19 @@ export const Popup = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (!file) {
+      return;
+    }
+
+    const fileReader = new FileReader();
+    fileReader.readAsText(file, "UTF-8");
+    fileReader.onload = (ev) => {
+      const result = ev.target!.result as string;
+      setAllData(JSON.parse(result));
+    };
+  }, [file]);
 
   const deleteAll = useCallback(async () => {
     await indexedDBStore.deleteAll();
@@ -38,7 +52,6 @@ export const Popup = () => {
     anchor.click();
     URL.revokeObjectURL(url);
   }, [allData]);
-
   return (
     <>
       <main>
@@ -52,6 +65,7 @@ export const Popup = () => {
           <Button variant="contained" color="error" onClick={deleteAll}>
             delete
           </Button>
+          <UploadButton setFile={setFile} />
         </Box>
         <BlocksTimeLineChart
           allData={allData}
