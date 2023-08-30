@@ -15,36 +15,16 @@ export const BlockCanvas = ({ contentState }: PropsType) => {
       return;
     }
 
-    const wrapBlockChunks = divRef.current.children[0];
-    Array.from(wrapBlockChunks.children).forEach((div) => {
+    Array.from(divRef.current.children!).forEach((div) => {
       const svg = div.children[0];
-      const blockChunk = svg.children[0];
-      const { width, height } = blockChunk.getBoundingClientRect();
+      const g = svg.children[0];
+      const { width, height } = g.getBoundingClientRect();
       svg.setAttribute("width", String(width));
       svg.setAttribute("height", String(height));
     });
-  }, [contentState]);
 
-  const parseOptions: HTMLReactParserOptions = {
-    htmlparser2: {
-      lowerCaseTags: false,
-    },
-    replace: (node) => {
-      if (
-        node instanceof Element &&
-        node.parent instanceof Element &&
-        node.parent.attribs.class == "blocklyBlockCanvas"
-      ) {
-        // transformの属性を消し，gタグはdiv, svgで内包する
-        node.attribs.transform = "";
-        return (
-          <div>
-            <svg>{domToReact([node])}</svg>
-          </div>
-        );
-      }
-    },
-  };
+    contentState.html = divRef.current.innerHTML;
+  }, [contentState]);
 
   const date = new Date(contentState.date);
   const formattedDate = date.toLocaleDateString("ja", {
@@ -59,7 +39,7 @@ export const BlockCanvas = ({ contentState }: PropsType) => {
   return (
     <>
       <h1>{formattedDate}</h1>
-      <div ref={divRef}>{parse(contentState.html, parseOptions)}</div>
+      <div ref={divRef}>{parse(contentState.html)}</div>
     </>
   );
 };
