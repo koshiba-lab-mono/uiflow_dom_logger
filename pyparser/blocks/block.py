@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup, ResultSet, Tag
 class Block:
     html: str
     parent: Block | None = None
-    _children: list[Block] = field(default_factory=list)
+    _children: list[Block] = field(default_factory=list, compare=False)
 
     @property
     def soup(self):
