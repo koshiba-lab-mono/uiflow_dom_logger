@@ -1,7 +1,6 @@
 from __future__ import annotations
 from bs4 import BeautifulSoup, Tag
 
-from pyparser.blocks.block import Block
 from .block import Block
 from .block_factory import IBlockFactory
 from ..utils.utils import get_transform_value
@@ -11,9 +10,7 @@ class AssignableChildrenBlockFactory(IBlockFactory):
     def create_instances(self, uiflow_html: str) -> list[list[Block]]:
         soup = BeautifulSoup(uiflow_html, "html.parser")
         draggable_block_dom_trees = soup.select("svg > .blocklyDraggable")
-        blocks_collection = [
-            self._parse_blocks_from_dom_tree(tree) for tree in draggable_block_dom_trees
-        ]
+        blocks_collection = [self._parse_blocks_from_dom_tree(tree) for tree in draggable_block_dom_trees]
         return blocks_collection
 
     def _parse_blocks_from_dom_tree(self, dom_tree: Tag) -> list[Block]:
