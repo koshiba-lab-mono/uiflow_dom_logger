@@ -39,6 +39,9 @@ class BlockFactory(IBlockFactory):
                     block_html += str(child)
                     continue
 
+                if "blocklyInsertionMarker" in child_classes:
+                    continue
+
                 # blockDrabbableを持っているdomは，動かせるblock(s) を持っている
                 draggable_block_tags.append(child)
 
