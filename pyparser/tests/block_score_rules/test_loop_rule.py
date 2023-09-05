@@ -10,9 +10,7 @@ from pyparser.blocks.assignable_children_block_factory import (
 )
 from pyparser.block_score_rules.loop_rule import LoopRule
 
-with open(
-    os.path.join(__file__, "..", "../imgs/block_dom5.svg"), "r", encoding="utf-8"
-) as f:
+with open(os.path.join(__file__, "..", "../imgs/block_dom5.svg"), "r", encoding="utf-8") as f:
     block_dom5 = f.read()
 
 
