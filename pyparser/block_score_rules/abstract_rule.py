@@ -25,19 +25,22 @@ class AbstactRule(BlockScoreRule):
         score = 0
         for blocks in blocks_collection:
             for block in blocks:
-                # 関数の定義ブロック
-                if "関数" in block.words():
-                    score += 4
+                score += self._score_one_block(block)
 
-                # 関数の利用ブロック
-                if is_use_fucntion_block(block):
-                    function_name = block.words()[0]
+        return score
 
-                    if function_name in self.seen_function_count:
-                        self.seen_function_count[function_name] += 1
-                    else:
-                        self.seen_function_count[function_name] = 1
-
-                    score += self.seen_function_count[function_name]
+    def _score_one_block(self, block: Block):
+        score = 0
+        # 関数の定義ブロック
+        if "関数" in block.words():
+            score += 4
+        # 関数の利用ブロック
+        if is_use_fucntion_block(block):
+            function_name = block.words()[0]
+            if function_name in self.seen_function_count:
+                self.seen_function_count[function_name] += 1
+            else:
+                self.seen_function_count[function_name] = 1
+            score += self.seen_function_count[function_name]
 
         return score

@@ -34,16 +34,20 @@ class VariableDataRule(BlockScoreRule):
 
         for blocks in blocks_collection:
             for block in blocks:
-                if is_variable_block(block):
-                    # 変数に関わるブロック利用していると加点
-                    score += 1
+                score += self._score_one_block(block)
 
-                if is_list_block(block):
-                    # 配列操作に関わるブロックを利用している
-                    score += 2
+        return score
 
-                if is_map_block(block):
-                    # 連想配列に関わるブロックを利用している
-                    score += 3
+    def _score_one_block(self, block: Block) -> int:
+        score = 0
+        if is_variable_block(block):
+            # 変数に関わるブロック利用していると加点
+            score += 1
+        if is_list_block(block):
+            # 配列操作に関わるブロックを利用している
+            score += 2
+        if is_map_block(block):
+            # 連想配列に関わるブロックを利用している
+            score += 3
 
         return score

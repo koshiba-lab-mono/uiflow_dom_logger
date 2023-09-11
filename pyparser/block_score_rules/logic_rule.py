@@ -22,31 +22,36 @@ class LogicRule(BlockScoreRule):
         score = 0
         for blocks in blocks_collection:
             for block in blocks:
-                if block in self.seen_block:
-                    continue
+                score += self._score_one_block(block)
 
-                # if - else
-                if "もし" in block.words() and "そうでなければ" in block.words():
-                    score += 2
+        self.seen_block = {}
+        return score
 
-                    # if(-else) の入れ子
-                    for child in block.children:
-                        if "もし" in child.words():
-                            score += 4
+    def _score_one_block(self, block: Block) -> int:
+        score = 0
+        if block in self.seen_block:
+            return score
 
-                # if
-                elif "もし" in block.words():
-                    score += 1
+        # if - else
+        if "もし" in block.words() and "そうでなければ" in block.words():
+            score += 2
+            # if(-else) の入れ子
+            for child in block.children:
+                if "もし" in child.words():
+                    score += 4
+                    self.seen_block.add(child)
 
-                    # if(-else) の入れ子
-                    for child in block.children:
-                        if "もし" in child.words():
-                            score += 4
-                            self.seen_block.add(child)
+        # if
+        elif "もし" in block.words():
+            score += 1
+            # if(-else) の入れ子
+            for child in block.children:
+                if "もし" in child.words():
+                    score += 4
+                    self.seen_block.add(child)
 
-                # 倫理演算子
-                if isin_logical_operators(block.words()):
-                    score += 3
+        # 倫理演算子
+        if isin_logical_operators(block.words()):
+            score += 3
 
-            self.seen_block = {}
         return score

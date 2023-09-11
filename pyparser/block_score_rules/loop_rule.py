@@ -19,30 +19,34 @@ class LoopRule(BlockScoreRule):
         score = 0
         for blocks in blocks_collection:
             for block in blocks:
-                if block in self.seen_block:
-                    continue
+                score += self._score_one_block(block)
 
-                # ずっと
-                if "ずっと" in block.words():
-                    score += 1
+        return score
 
-                # for
-                if "回繰り返す" in block.words():
-                    score += 2
+    def _score_one_block(self, block: Block) -> int:
+        score = 0
+        if block in self.seen_block:
+            return score
 
-                    # for or while の入れ子
-                    for child in block.children:
-                        if "回繰り返す" in child.words() or is_while_block(child):
-                            score += 4
-                            self.seen_block.add(child)
+        # ずっと
+        if "ずっと" in block.words():
+            score += 1
 
-                # while
-                if is_while_block(block):
-                    score += 3
-                    # for or while の入れ子
-                    for child in block.children:
-                        if "繰り返す" in child.words() or is_while_block(child):
-                            score += 4
-                            self.seen_block.add(child)
+        # for
+        if "回繰り返す" in block.words():
+            score += 2
+            # for or while の入れ子
+            for child in block.children:
+                if "回繰り返す" in child.words() or is_while_block(child):
+                    score += 4
+                    self.seen_block.add(child)
+        # while
+        if is_while_block(block):
+            score += 3
+            # for or while の入れ子
+            for child in block.children:
+                if "繰り返す" in child.words() or is_while_block(child):
+                    score += 4
+                    self.seen_block.add(child)
 
         return score
