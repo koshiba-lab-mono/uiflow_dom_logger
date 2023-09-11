@@ -45,9 +45,9 @@ class VariableDataRule(BlockScoreRule):
             score += 1
         if is_list_block(block):
             # 配列操作に関わるブロックを利用している
-            score += 2
+            score += 3
         if is_map_block(block):
             # 連想配列に関わるブロックを利用している
-            score += 3
+            score += 4
 
         return score

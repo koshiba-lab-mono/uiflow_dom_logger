@@ -40,7 +40,7 @@ class TestVariableDataRule(unittest.TestCase):
 
         actual_score = rule.score(blocks_collection)
 
-        expected_score = 1 + 1 + 1 + 3 + 2 + 1
+        expected_score = 1 + 1 + 1 + 4 + 3 + 1
 
         self.assertEqual(actual_score, expected_score)
 
