@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from .block_score_policy import BlockScorePolicy
-from ..block_score_rules import LoopRule, LogicRule, VariableDataRule
+from ..block_score_rules import LoopRule, LogicRule, VariableDataRule, AbstactRule
 
 
 class CTCPolicyScore(BlockScorePolicy):
@@ -10,3 +10,4 @@ class CTCPolicyScore(BlockScorePolicy):
         self.add(LoopRule())
         self.add(LogicRule())
         self.add(VariableDataRule())
+        self.add(AbstactRule())
