@@ -28,7 +28,7 @@ def is_map_block(block: Block):
 
 
 # データ（変数や配列）利用加点
-class VariableDataRule(BlockScoreRule):
+class VariableDataScoreRule(BlockScoreRule):
     def score(self, blocks_collection: list[list[Block]]) -> int:
         score = 0
 

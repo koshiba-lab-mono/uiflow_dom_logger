@@ -8,7 +8,9 @@ sys.path.append(".")
 from pyparser.blocks.assignable_children_block_factory import (
     AssignableChildrenBlockFactory,
 )
-from pyparser.block_score_rules.data_representation_rule import DataRepresentationRule
+from pyparser.block_score_rules.data_representation_score_rule import (
+    DataRepresentationScoreRule,
+)
 
 
 with open(os.path.join(__file__, "..", "../imgs/block_dom8.svg"), "r", encoding="utf-8") as f:
@@ -23,7 +25,7 @@ class TestDataRepresentationRule(unittest.TestCase):
 
         factory = AssignableChildrenBlockFactory()
         blocks_collection = factory.create_instances(block_dom8)
-        actual_score = DataRepresentationRule().score(blocks_collection)
+        actual_score = DataRepresentationScoreRule().score(blocks_collection)
         expected_score = 1 + 3 + 3 + 3 + 2  # 絵文字利用(1) + センサー値表示ラベル利用(3) * 3 + ラベル利用(2)
 
         self.assertEqual(actual_score, expected_score)

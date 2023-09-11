@@ -9,7 +9,7 @@ sys.path.append(".")
 from pyparser.blocks.assignable_children_block_factory import (
     AssignableChildrenBlockFactory,
 )
-from pyparser.block_score_rules.abstract_rule import AbstactRule
+from pyparser.block_score_rules.abstract_score_rule import AbstactScoreRule
 
 with open(os.path.join(__file__, "..", "../imgs/block_dom7_1.svg"), "r", encoding="utf-8") as f:
     block_dom7_1 = f.read()
@@ -31,7 +31,7 @@ class TestAbstractRule(unittest.TestCase):
 
         factory = AssignableChildrenBlockFactory()
         blocks_collection = factory.create_instances(block_dom7)
-        actual_score = AbstactRule().score(blocks_collection)
+        actual_score = AbstactScoreRule().score(blocks_collection)
         expected_score = 4 + 4 + 1 + 1 + 2  # 定義(4) * 2 + 使用(1), 使用(1), 使用2回目(2)
 
         self.assertEqual(actual_score, expected_score)

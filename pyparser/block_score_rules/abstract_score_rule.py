@@ -12,7 +12,7 @@ def is_use_fucntion_block(block: Block):
 
 
 # 抽象化（関数）利用得点
-class AbstactRule(BlockScoreRule):
+class AbstractScoreRule(BlockScoreRule):
     def __init__(self):
         self.seen_function_count: dict[str, int] = {}  # 関数名, 使用数
 

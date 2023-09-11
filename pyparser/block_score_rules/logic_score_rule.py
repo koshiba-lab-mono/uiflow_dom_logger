@@ -14,7 +14,7 @@ def isin_logical_operators(strings: list[str]):
     return False
 
 
-class LogicRule(BlockScoreRule):
+class LogicScoreRule(BlockScoreRule):
     def __init__(self):
         self.seen_block: set[Block] = set()
 

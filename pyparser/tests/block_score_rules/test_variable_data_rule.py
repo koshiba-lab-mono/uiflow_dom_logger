@@ -7,7 +7,7 @@ sys.path.append(".")
 from pyparser.blocks.assignable_children_block_factory import (
     AssignableChildrenBlockFactory,
 )
-from pyparser.block_score_rules.variable_data_rule import VariableDataRule
+from pyparser.block_score_rules.variable_data_score_rule import VariableDataScoreRule
 
 
 with open(
@@ -36,7 +36,7 @@ class TestVariableDataRule(unittest.TestCase):
         factory = AssignableChildrenBlockFactory()
 
         blocks_collection = factory.create_instances(block_dom6)
-        rule = VariableDataRule()
+        rule = VariableDataScoreRule()
 
         actual_score = rule.score(blocks_collection)
 

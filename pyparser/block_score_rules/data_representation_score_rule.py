@@ -5,7 +5,7 @@ from ..blocks.block import Block
 
 
 # データ表現利用得点ルール
-class DataRepresentationRule(BlockScoreRule):
+class DataRepresentationScoreRule(BlockScoreRule):
     def score(self, blocks_collection: list[list[Block]]) -> int:
         """
         絵文字利用 +1

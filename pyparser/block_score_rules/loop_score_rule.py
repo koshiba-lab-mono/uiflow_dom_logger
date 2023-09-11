@@ -11,7 +11,7 @@ def is_while_block(block: Block):
     return False
 
 
-class LoopRule(BlockScoreRule):
+class LoopScoreRule(BlockScoreRule):
     def __init__(self):
         self.seen_block: set[Block] = set()
 
