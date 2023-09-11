@@ -11,9 +11,9 @@ class BlockScorePolicy(metaclass=ABCMeta):
     def add(self, rule: BlockScoreRule):
         self.rules.append(rule)
 
-    def comply_with_all(self, blocks: list[Block]):
+    def comply_with_all(self, blocks_collection: list[list[Block]]):
         score = 0
         for rule in self.rules:
-            score += rule.score(blocks)
+            score += rule.score(blocks_collection)
 
         return score

@@ -6,5 +6,5 @@ from ..blocks.block import Block
 
 class BlockScoreRule(metaclass=ABCMeta):
     @abstractmethod
-    def score(blocks: list[Block]) -> int:
+    def score(blocks_collection: list[list[Block]]) -> int:
         ...

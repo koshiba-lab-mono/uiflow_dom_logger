@@ -23,7 +23,7 @@ class TestLoopRule(unittest.TestCase):
 
         blocks_collection = factory.create_instances(block_dom5)
 
-        actual_score = LoopRule().score(blocks_collection[0])
+        actual_score = LoopRule().score(blocks_collection)
         expected_score = 3 + 1 + 2 + 4  # while(3) + ずっと(1) + for(2) + nest for(4)
         self.assertEqual(actual_score, expected_score)
 

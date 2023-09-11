@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from bs4 import Tag
-
 from .block_score_rule import BlockScoreRule
 from ..blocks.block import Block
 
@@ -24,26 +22,28 @@ def is_list_block(block: Block):
 def is_map_block(block: Block):
     for word in block.words():
         if "マップ" in word:
+            print("sample")
             return True
     return False
 
 
 # データ（変数や配列）利用加点
 class VariableDataRule(BlockScoreRule):
-    def score(self, blocks: list[Block]) -> int:
+    def score(self, blocks_collection: list[list[Block]]) -> int:
         score = 0
 
-        for block in blocks:
-            if is_variable_block(block):
-                # 変数に関わるブロック利用していると加点
-                score += 1
+        for blocks in blocks_collection:
+            for block in blocks:
+                if is_variable_block(block):
+                    # 変数に関わるブロック利用していると加点
+                    score += 1
 
-            if is_list_block(block):
-                # 配列操作に関わるブロックを利用している
-                score += 2
+                if is_list_block(block):
+                    # 配列操作に関わるブロックを利用している
+                    score += 2
 
-            if is_map_block(block):
-                # 連想配列に関わるブロックを利用している
-                score += 3
+                if is_map_block(block):
+                    # 連想配列に関わるブロックを利用している
+                    score += 3
 
         return score

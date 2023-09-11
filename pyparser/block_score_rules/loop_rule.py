@@ -15,33 +15,34 @@ class LoopRule(BlockScoreRule):
     def __init__(self):
         self.seen_block: set[Block] = set()
 
-    def score(self, blocks: list[Block]) -> int:
+    def score(self, blocks_collection: list[list[Block]]) -> int:
         score = 0
-        for block in blocks:
-            if block in self.seen_block:
-                continue
+        for blocks in blocks_collection:
+            for block in blocks:
+                if block in self.seen_block:
+                    continue
 
-            # ずっと
-            if "ずっと" in block.words():
-                score += 1
+                # ずっと
+                if "ずっと" in block.words():
+                    score += 1
 
-            # for
-            if "回繰り返す" in block.words():
-                score += 2
+                # for
+                if "回繰り返す" in block.words():
+                    score += 2
 
-                # for or while の入れ子
-                for child in block.children:
-                    if "回繰り返す" in child.words() or is_while_block(child):
-                        score += 4
-                        self.seen_block.add(child)
+                    # for or while の入れ子
+                    for child in block.children:
+                        if "回繰り返す" in child.words() or is_while_block(child):
+                            score += 4
+                            self.seen_block.add(child)
 
-            # while
-            if is_while_block(block):
-                score += 3
-                # for or while の入れ子
-                for child in block.children:
-                    if "繰り返す" in child.words() or is_while_block(child):
-                        score += 4
-                        self.seen_block.add(child)
+                # while
+                if is_while_block(block):
+                    score += 3
+                    # for or while の入れ子
+                    for child in block.children:
+                        if "繰り返す" in child.words() or is_while_block(child):
+                            score += 4
+                            self.seen_block.add(child)
 
         return score

@@ -18,34 +18,35 @@ class LogicRule(BlockScoreRule):
     def __init__(self):
         self.seen_block: set[Block] = set()
 
-    def score(self, blocks: list[Block]) -> int:
+    def score(self, blocks_collection: list[list[Block]]) -> int:
         score = 0
-        for block in blocks:
-            if block in self.seen_block:
-                continue
+        for blocks in blocks_collection:
+            for block in blocks:
+                if block in self.seen_block:
+                    continue
 
-            # if - else
-            if "もし" in block.words() and "そうでなければ" in block.words():
-                score += 2
+                # if - else
+                if "もし" in block.words() and "そうでなければ" in block.words():
+                    score += 2
 
-                # if(-else) の入れ子
-                for child in block.children:
-                    if "もし" in child.words():
-                        score += 4
+                    # if(-else) の入れ子
+                    for child in block.children:
+                        if "もし" in child.words():
+                            score += 4
 
-            # if
-            elif "もし" in block.words():
-                score += 1
+                # if
+                elif "もし" in block.words():
+                    score += 1
 
-                # if(-else) の入れ子
-                for child in block.children:
-                    if "もし" in child.words():
-                        score += 4
-                        self.seen_block.add(child)
+                    # if(-else) の入れ子
+                    for child in block.children:
+                        if "もし" in child.words():
+                            score += 4
+                            self.seen_block.add(child)
 
-            # 倫理演算子
-            if isin_logical_operators(block.words()):
-                score += 3
+                # 倫理演算子
+                if isin_logical_operators(block.words()):
+                    score += 3
 
-        self.seen_block = {}
+            self.seen_block = {}
         return score
