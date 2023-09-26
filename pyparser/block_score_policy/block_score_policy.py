@@ -18,6 +18,9 @@ class BlockScorePolicy(metaclass=ABCMeta):
 
         return score
 
+    def rule_names(self) -> list[str]:
+        return [rule.__class__.__name__ for rule in self.rules]
+
     def each_score(self, blocks_collection: list[list[Block]]) -> list[tuple[str, int]]:
         name_scores: list[tuple[str, int]] = []
         for rule in self.rules:
