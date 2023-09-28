@@ -1,2 +1,3 @@
 from .block_score_policy import BlockScorePolicy
-from .ctc_policy_score import CTCPolicyScore
+from .ctc_score_policy import CTCScorePolicy
+from .simple_ctc_score_policy import SimpleCTCScorePolicy

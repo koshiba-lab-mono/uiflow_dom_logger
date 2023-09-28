@@ -10,7 +10,7 @@ from ..block_score_rules import (
 )
 
 
-class CTCPolicyScore(BlockScorePolicy):
+class CTCScorePolicy(BlockScorePolicy):
     def __init__(self):
         super().__init__()
         self.add(LoopScoreRule())

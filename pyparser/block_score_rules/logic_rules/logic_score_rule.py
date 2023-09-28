@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from .block_score_rule import BlockScoreRule
-from ..blocks.block import Block
+from ..block_score_rule import BlockScoreRule
+from ...blocks.block import Block
 
 LOGICAL_OPERATORS_SIMBOLS = {"=", "≠", "<", "≤", ">", "≥"}
 

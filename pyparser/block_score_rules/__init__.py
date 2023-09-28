@@ -1,6 +1,6 @@
 from .block_score_rule import BlockScoreRule
-from .logic_score_rule import LogicScoreRule
-from .loop_score_rule import LoopScoreRule
-from .variable_data_score_rule import VariableDataScoreRule
-from .abstract_score_rule import AbstractScoreRule
-from .data_representation_score_rule import DataRepresentationScoreRule
+from .logic_rules import LogicScoreRule, SimpleLogicScoreRule
+from .loop_rules import LoopScoreRule, SimpleLoopScoreRule
+from .variable_data_rules import VariableDataScoreRule, SimpleVariableDataScoreRule
+from .abstract_rules import AbstractScoreRule, SimpleAbstractScoreRule
+from .data_representation_rules import DataRepresentationScoreRule, SimpleDataRepresentationScoreRule
