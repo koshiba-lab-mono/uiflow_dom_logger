@@ -37,6 +37,9 @@ class BlockFactory(IBlockFactory):
                     block_html += str(child)
                     continue
 
+                if "blocklyDisabled" in child_classes:
+                    continue
+
                 if "blocklyInsertionMarker" in child_classes:
                     continue
 

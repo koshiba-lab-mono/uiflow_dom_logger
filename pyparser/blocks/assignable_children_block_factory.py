@@ -37,6 +37,9 @@ class AssignableChildrenBlockFactory(IBlockFactory):
                     block.add_html(str(child))
                     continue
 
+                if "blocklyDisabled" in child_classes:
+                    continue
+
                 if "blocklyInsertionMarker" in child_classes:
                     continue
 
