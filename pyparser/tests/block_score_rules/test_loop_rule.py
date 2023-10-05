@@ -1,14 +1,12 @@
 from __future__ import annotations
-import unittest
+
 import os
 import sys
-
+import unittest
 
 sys.path.append(".")
-from pyparser.blocks.assignable_children_block_factory import (
-    AssignableChildrenBlockFactory,
-)
 from pyparser.block_score_rules.loop_score_rule import LoopScoreRule
+from pyparser.blocks.assignable_children_block_factory import AssignableChildrenBlockFactory
 
 with open(os.path.join(__file__, "..", "../imgs/block_dom5.svg"), "r", encoding="utf-8") as f:
     block_dom5 = f.read()

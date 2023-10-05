@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from .variable_data_score_rule import is_variable_block, is_list_block, is_map_block
-from ..block_score_rule import BlockScoreRule
 from ...blocks.block import Block
+from ..block_score_rule import BlockScoreRule
+from .variable_data_score_rule import is_list_block, is_map_block, is_variable_block
 
 
 # データ（変数や配列）利用加点

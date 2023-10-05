@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from .block_score_policy import BlockScorePolicy
 from ..block_score_rules import (
-    SimpleLoopScoreRule,
-    SimpleLogicScoreRule,
-    SimpleVariableDataScoreRule,
     SimpleAbstractScoreRule,
     SimpleDataRepresentationScoreRule,
+    SimpleLogicScoreRule,
+    SimpleLoopScoreRule,
+    SimpleVariableDataScoreRule,
 )
+from .block_score_policy import BlockScorePolicy
 
 
 class SimpleCTCScorePolicy(BlockScorePolicy):

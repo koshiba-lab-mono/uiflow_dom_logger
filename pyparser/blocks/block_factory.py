@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 from abc import ABCMeta, abstractmethod
+
 from bs4 import BeautifulSoup, Tag
 
 from ..blocks.block import Block

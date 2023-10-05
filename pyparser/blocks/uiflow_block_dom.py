@@ -1,13 +1,13 @@
 from __future__ import annotations
-import json
+
 import datetime
+import json
 from pathlib import Path
 
 from bs4 import BeautifulSoup
-from .block_factory import IBlockFactory
-from .block import Block
-from .assignable_children_block_factory import AssignableChildrenBlockFactory
 
+from .assignable_children_block_factory import AssignableChildrenBlockFactory
+from .block import Block
 
 block_factory = AssignableChildrenBlockFactory()
 

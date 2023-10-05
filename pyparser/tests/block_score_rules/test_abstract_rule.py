@@ -1,15 +1,15 @@
 from __future__ import annotations
-import unittest
-import sys
+
 import os
+import sys
+import unittest
+
 from bs4 import BeautifulSoup
 
 sys.path.append(".")
 
-from pyparser.blocks.assignable_children_block_factory import (
-    AssignableChildrenBlockFactory,
-)
 from pyparser.block_score_rules.abstract_score_rule import AbstactScoreRule
+from pyparser.blocks.assignable_children_block_factory import AssignableChildrenBlockFactory
 
 with open(os.path.join(__file__, "..", "../imgs/block_dom7_1.svg"), "r", encoding="utf-8") as f:
     block_dom7_1 = f.read()

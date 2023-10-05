@@ -1,17 +1,13 @@
 from __future__ import annotations
-import unittest
+
 import os
 import sys
+import unittest
 
 sys.path.append(".")
 
-from pyparser.blocks.assignable_children_block_factory import (
-    AssignableChildrenBlockFactory,
-)
-from pyparser.block_score_rules.data_representation_score_rule import (
-    DataRepresentationScoreRule,
-)
-
+from pyparser.block_score_rules.data_representation_score_rule import DataRepresentationScoreRule
+from pyparser.blocks.assignable_children_block_factory import AssignableChildrenBlockFactory
 
 with open(os.path.join(__file__, "..", "../imgs/block_dom8.svg"), "r", encoding="utf-8") as f:
     block_dom8 = f.read()

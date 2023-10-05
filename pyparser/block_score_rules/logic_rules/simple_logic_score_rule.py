@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from .logic_score_rule import isin_logical_operators
-from ..block_score_rule import BlockScoreRule
 from ...blocks.block import Block
+from ..block_score_rule import BlockScoreRule
+from .logic_score_rule import isin_logical_operators
 
 
 class SimpleLogicScoreRule(BlockScoreRule):

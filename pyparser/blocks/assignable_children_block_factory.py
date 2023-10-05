@@ -1,9 +1,10 @@
 from __future__ import annotations
+
 from bs4 import BeautifulSoup, Tag
 
+from ..utils.utils import get_transform_value
 from .block import Block
 from .block_factory import IBlockFactory
-from ..utils.utils import get_transform_value
 
 
 class AssignableChildrenBlockFactory(IBlockFactory):

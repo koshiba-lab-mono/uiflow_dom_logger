@@ -1,1 +1,1 @@
-from .blocks import UiflowBlockDOM, BlockFactory, Block, AssignableChildrenBlockFactory
+from .blocks import AssignableChildrenBlockFactory, Block, BlockFactory, UiflowBlockDOM

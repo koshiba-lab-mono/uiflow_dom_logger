@@ -1,5 +1,4 @@
-from abc import abstractmethod, ABCMeta
-
+from abc import ABCMeta, abstractmethod
 
 from ..block_score_rules.block_score_rule import BlockScoreRule
 from ..blocks.block import Block

@@ -1,13 +1,10 @@
-import unittest
-import sys
 import os
+import sys
+import unittest
 
 sys.path.append(".")
+from pyparser.blocks.assignable_children_block_factory import AssignableChildrenBlockFactory
 from pyparser.blocks.block_factory import BlockFactory
-from pyparser.blocks.assignable_children_block_factory import (
-    AssignableChildrenBlockFactory,
-)
-
 
 block_dom1_path = os.path.join(__file__, "..", "./imgs/block_dom1.svg")
 block_dom2_path = os.path.join(__file__, "..", "./imgs/block_dom2.svg")

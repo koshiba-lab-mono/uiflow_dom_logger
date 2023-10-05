@@ -1,14 +1,12 @@
 from __future__ import annotations
-import unittest
+
 import os
 import sys
+import unittest
 
 sys.path.append(".")
-from pyparser.blocks.assignable_children_block_factory import (
-    AssignableChildrenBlockFactory,
-)
 from pyparser.block_score_rules.variable_data_score_rule import VariableDataScoreRule
-
+from pyparser.blocks.assignable_children_block_factory import AssignableChildrenBlockFactory
 
 with open(
     os.path.join(os.path.dirname(__file__), "../imgs/block_dom6_1.svg"),

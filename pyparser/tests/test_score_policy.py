@@ -1,12 +1,10 @@
-import unittest
-import sys
 import os
+import sys
+import unittest
 
 sys.path.append(".")
-from pyparser.blocks.assignable_children_block_factory import (
-    AssignableChildrenBlockFactory,
-)
 from pyparser.block_score_policy import CTCPolicyScore
+from pyparser.blocks.assignable_children_block_factory import AssignableChildrenBlockFactory
 
 with open(
     os.path.join(__file__, "..", "imgs/test_ctc_policy_score1.svg"),

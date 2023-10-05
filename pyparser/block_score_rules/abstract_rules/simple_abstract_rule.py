@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from .abstract_score_rule import is_use_fucntion_block
-from ..block_score_rule import BlockScoreRule
 from ...blocks.block import Block
+from ..block_score_rule import BlockScoreRule
+from .abstract_score_rule import is_use_fucntion_block
 
 
 class SimpleAbstractScoreRule(BlockScoreRule):
