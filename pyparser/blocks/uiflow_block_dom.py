@@ -1,28 +1,33 @@
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import ClassVar
+import json
 import datetime
+from pathlib import Path
 
 from bs4 import BeautifulSoup
 from .block_factory import IBlockFactory
+from .block import Block
 from .assignable_children_block_factory import AssignableChildrenBlockFactory
 
 
-@dataclass(frozen=True)
+block_factory = AssignableChildrenBlockFactory()
+
+
 class UiflowBlockDOM:
-    date: int | datetime.datetime
-    html: str
-    block_factory: ClassVar[IBlockFactory] = AssignableChildrenBlockFactory()
+    def __init__(self, date: int, html: str):
+        self.date: datetime.datetime = datetime.datetime.fromtimestamp(
+            date / 1000, tz=datetime.timezone(datetime.timedelta(hours=9))
+        )
+        self.html: str = html
 
-    def __post_init__(self):
-        if isinstance(self.date, int):
-            object.__setattr__(
-                self,
-                "date",
-                datetime.datetime.fromtimestamp(self.date / 1000, tz=datetime.timezone(datetime.timedelta(hours=9))),
-            )
+    def blocks(self) -> list[Block]:
+        return block_factory.create_instances(self.html)
 
-        object.__setattr__(self, "soup", BeautifulSoup(self.html, "html.parser"))
+    @classmethod
+    def load_instances(cls, json_path: Path) -> list[UiflowBlockDOM]:
+        with open(json_path, "r", encoding="utf-8") as f:
+            dict_data: list[dict] = json.load(f)
+        return [cls(**datum) for datum in dict_data]
 
-    def blocks(self):
-        return self.block_factory.create_instances(self.html)
+    @property
+    def soup(self) -> BeautifulSoup:
+        return BeautifulSoup(self.html, "html.parser")
