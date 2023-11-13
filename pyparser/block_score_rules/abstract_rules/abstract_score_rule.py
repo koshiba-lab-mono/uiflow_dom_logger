@@ -27,6 +27,7 @@ class AbstractScoreRule(BlockScoreRule):
             for block in blocks:
                 score += self._score_one_block(block)
 
+        self.seen_function_count = {}
         return score
 
     def _score_one_block(self, block: Block):
